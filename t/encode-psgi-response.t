@@ -42,21 +42,21 @@ my $nph2  = "HTTP+TEST/2.2 200 OK$CRLF";
 
 test_response('defaults',     $status, @headers, @body, $cgi);
 test_response('hash headers', $status, %headers, @body, $cgi);
-test_response('str body',     $status, %headers, $body, $cgi);
+test_response('str body',     $status, @headers, $body, $cgi);
 test_response('hash & str',   $status, %headers, $body, $cgi);
 
-test_response('NPR defaults',     $status, @headers, @body, $nph, :nph);
+test_response('NPH defaults',     $status, @headers, @body, $nph, :nph);
 test_response('NPH hash headers', $status, %headers, @body, $nph, :nph);
-test_response('NPH str body',     $status, %headers, $body, $nph, :nph);
+test_response('NPH str body',     $status, @headers, $body, $nph, :nph);
 test_response('NPH hash & str',   $status, %headers, $body, $nph, :nph);
 
 my $protocol = 'HTTP+TEST/2.2';
 
-test_response('custom NPR defaults',     
+test_response('custom NPH defaults',
   $status, @headers, @body, $nph2, :nph, :$protocol);
 test_response('custom NPH hash headers', 
   $status, %headers, @body, $nph2, :nph, :$protocol);
 test_response('custom NPH str body',     
-  $status, %headers, $body, $nph2, :nph, :$protocol);
+  $status, @headers, $body, $nph2, :nph, :$protocol);
 test_response('custom NPH hash & str',   
   $status, %headers, $body, $nph2, :nph, :$protocol);
