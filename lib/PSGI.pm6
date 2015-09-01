@@ -12,7 +12,7 @@ constant DEFAULT_PROTOCOL = 'HTTP/1.0';  ## Used for Non-Parsed Headers.
 ## Headers can be an Array of Pairs, or a Hash.
 ## Body can be an Array, a Str or a Buf.
 multi sub encode-psgi-response (
-  $code, $headers, $body,                      ## Required parameters.
+  Int(Any) $code, $headers, $body,             ## Required parameters.
   Bool :$nph, :$protocol=DEFAULT_PROTOCOL      ## Optional parameters.
 ) is export {
   my Str $output;
@@ -35,32 +35,67 @@ multi sub encode-psgi-response (
     $output ~= $header.key ~ ': ' ~ $header.value ~ CRLF;
   }
   $output ~= CRLF; ## Finished with headers.
-  my @body;
-  if $body ~~ Array {
-    @body = @$body;
-  }
-  else {
-    @body = $body;
-  }
-  for @body -> $segment {
-    if $segment ~~ Buf {
-      if $output ~~ Buf {
-        $output ~= $segment;
+
+  if ($body ~~ Supply)
+  {
+    $body.tap(-> $segment {
+      if $segment ~~ Buf {
+        if $output ~~ Buf {
+          $output ~= $segment;
+        }
+        else {
+          $output = $output.encode('UTF-8') ~ $segment;
+        }
       }
       else {
-        $output = $output.encode ~ $segment;
+        if $output ~~ Buf {
+          $output ~= $segment.Str.encode('UTF-8');
+        }
+        else {
+          $output ~= $segment.Str;
+        }
       }
+    });
+    $body.wait;
+  }
+  else
+  {
+    my @body;
+    if $body ~~ Array {
+      @body = @$body;
     }
     else {
-      if $output ~~ Buf {
-        $output ~= $segment.Str.encode;
+      @body = $body;
+    }
+    for @body -> $segment {
+      if $segment ~~ Buf {
+        if $output ~~ Buf {
+          $output ~= $segment;
+        }
+        else {
+          $output = $output.encode ~ $segment;
+        }
       }
       else {
-        $output ~= $segment.Str;
+        if $output ~~ Buf {
+          $output ~= $segment.Str.encode;
+        }
+        else {
+          $output ~= $segment.Str;
+        }
       }
     }
   }
+
   return $output;
+}
+
+## A version that takes a Promise.
+multi sub encode-psgi-response (
+  Promise(Any) $p,
+  Bool :$nph, :$protocol=DEFAULT_PROTOCOL
+) is export {
+  encode-psgi-response($p.result, :$nph, :$protocol);
 }
 
 ## A version that takes the traditional Array of three elements,

@@ -7,6 +7,8 @@ BEGIN @*INC.push: './lib';
 use Test;
 use PSGI;
 
+plan(4);
+
 sub p6sgi_version (%env, $note='p6sgi version')
 {
   is %env<p6sgi.version>, Version.new('0.4.Draft'), $note;
