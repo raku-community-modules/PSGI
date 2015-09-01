@@ -71,3 +71,47 @@ multi sub encode-psgi-response (
 ) is export {
   encode-psgi-response(|@response, :$nph, :$protocol);
 }
+
+## Take an environment hash, and populate the P6SGI/PSGI variables.
+sub populate-psgi-env (
+    %env, 
+    :$input,                      # input stream (if any)
+    :$errors,                     # error stream (if any)
+    :$input-buffered  = False,    # is input buffered? (P6SGI only)
+    :$errors-buffered = False,    # are errors buffered? (P6SGI only)
+    :$url-scheme      = 'http',   # HTTP or HTTPS
+    :$multithread     = False,    # Can be multithreaded?
+    :$multiprocess    = False,    # Can be multiprocessed?
+    :$run-once        = False,    # Should only be run once in a process?
+    :$encoding        = 'UTF-8',  # Character encoding (P6SGI only)
+    :$nonblocking     = False,    # Non-blocking IO (PSGI Classic only)
+    :$streaming       = False;    # Streaming IO (PSGI Classic only)
+    :$psgi-classic    = False,    # include PSGI Classic headers
+    :$p6sgi           = True,     # include P6SGI headers
+) is export {
+  if ($p6sgi)
+  {
+    %env<p6sgi.version>         = Version.new('0.4.Draft');
+    %env<p6sgi.url-scheme>      = $url-scheme;
+    %env<p6sgi.input>           = $input;
+    %env<p6sgi.input.buffered>  = $input-buffered;
+    %env<p6sgi.errors>          = $errors;
+    %env<p6sgi.errors.buffered> = $errors-buffered;
+    %env<p6sgi.multithread>     = $multithread;
+    %env<p6sgi.multiprocess>    = $multiprocess;
+    %env<p6sgi.run-once>        = $run-once;
+    %env<p6sgi.encoding>        = $encoding;
+  }
+  if ($psgi-classic)
+  {
+    %env<psgi.version>       = [1,0];
+    %env<psgi.url_scheme>    = $url-scheme;
+    %env<psgi.multithread>   = $multithread;
+    %env<psgi.multiprocess>  = $multiprocess;
+    %env<psgi.input>         = $input;
+    %env<psgi.errors>        = $errors;
+    %env<psgi.run_once>      = $run-once;
+    %env<psgi.nonblocking>   = $nonblocking;
+  }
+}
+
