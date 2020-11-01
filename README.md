@@ -1,4 +1,6 @@
-# PSGI for Perl 6
+# PSGI for Raku
+
+[![Build Status](https://travis-ci.com/raku-community-modules/perl6-psgi.svg?branch=master)](https://travis-ci.com/raku-community-modules/perl6-psgi)
 
 ## Introduction
 
@@ -68,7 +70,8 @@ See the tests for further examples.
 
 ## Author 
 
-Timothy Totten, supernovus on #perl6, https://github.com/supernovus/
+Timothy Totten, supernovus on #raku, https://github.com/supernovus/
+Actually maintained by the Raku community.
 
 ## License
 
