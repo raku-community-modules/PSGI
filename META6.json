@@ -10,5 +10,5 @@
     "provides"    : {
         "PSGI"      : "lib/PSGI.pm6"
     },
-    "source-url"  : "git://github.com/raku-community-modules/raku-psgi.git"
+    "source-url"  : "git://github.com/raku-community-modules/PSGI.git"
 }
