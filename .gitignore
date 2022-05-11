@@ -1,3 +1,2 @@
-blib/
-Makefile
-lib/.precomp
+.precomp/
+/PSGI-*

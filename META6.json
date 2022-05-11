@@ -1,14 +1,27 @@
 {
-    "perl"        : "6.*",
-    "name"        : "PSGI",
-    "version"   : "1.2.0",
-    "auth"      : "github:raku-community-modules",
-    "authors"   : [ "Timothy Totten, supernovus",
-                    "Raku community" ],
-    "description" : "A PSGI helper library.",
-    "depends"     : ["HTTP::Status"],
-    "provides"    : {
-        "PSGI"      : "lib/PSGI.pm6"
-    },
-    "source-url"  : "git://github.com/raku-community-modules/PSGI.git"
+  "auth": "zef:raku-community-modules",
+  "authors": [
+    "Timothy Totten, supernovus",
+    "Raku community"
+  ],
+  "build-depends": [
+  ],
+  "depends": [
+    "HTTP::Status"
+  ],
+  "description": "Helper library for creating P6SGI/PSGI compliant frameworks",
+  "license": "Artistic-2.0",
+  "name": "PSGI",
+  "perl": "6.*",
+  "provides": {
+    "PSGI": "lib/PSGI.rakumod"
+  },
+  "resources": [
+  ],
+  "source-url": "git://github.com/raku-community-modules/PSGI.git",
+  "tags": [ "PSGI"
+  ],
+  "test-depends": [
+  ],
+  "version": "1.2.1"
 }
