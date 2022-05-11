@@ -19,7 +19,8 @@
   "resources": [
   ],
   "source-url": "git://github.com/raku-community-modules/PSGI.git",
-  "tags": [ "PSGI"
+  "tags": [
+    "PSGI"
   ],
   "test-depends": [
   ],

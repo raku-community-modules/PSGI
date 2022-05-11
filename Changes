@@ -1,4 +1,6 @@
 Revision history for PSGI
 
 {{$NEXT}}
+
+1.2.1  2022-05-11T20:57:21+02:00
     - First version in the zef ecosystem

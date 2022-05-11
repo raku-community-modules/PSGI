@@ -72,7 +72,7 @@ Timothy Totten
 COPYRIGHT AND LICENSE
 =====================
 
-Copyright 2012 - 2016 Timothy Totten
+Copyright 2013 - 2016 Timothy Totten
 
 Copyright 2017 - 2022 Raku Community
 
