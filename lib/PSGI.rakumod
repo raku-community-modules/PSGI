@@ -46,7 +46,7 @@ multi sub encode-psgi-response(
     }
 
     if $body ~~ Supply {
-        $body.tap: &add-to-output;
+        $body.tap: &add-to-output;  # UNCOVERABLE
         $body.wait;
     }
     else {
@@ -100,13 +100,13 @@ sub populate-psgi-env (
         $protocol = set($protocol);
     }
     if $p6sgi ~~ Bool && $p6sgi {
-        $p6sgi_04 = True;
+        $p6sgi_04 = True;  # UNCOVERABLE
         $p6sgi_07 = True;
     }
     elsif $p6sgi ~~ Str {
         my str $sgiver = $p6sgi.lc;
         if $sgiver eq 'all' {
-            $p6sgi_04 = True;
+            $p6sgi_04 = True;  # UNCOVERABLE
             $p6sgi_07 = True;
         }
         elsif $sgiver eq 'default' {
@@ -165,89 +165,5 @@ sub populate-psgi-env (
         %env<psgi.nonblocking>  = $nonblocking;
     }
 }
-
-=begin pod
-
-=head1 NAME
-
-PSGI - Helper library for creating P6SGI/PSGI compliant frameworks
-
-=head1 SYNOPSIS
-
-=begin code :lang<raku>
-
-use PSGI;
-
-# Using a traditional PSGI response array.
-# Headers are an Array of Pairs.
-# Body is an Array of Str or Buf.
-my $status   = 200;
-my $headers  = ['Content-Type'=>'text/plain'];
-my $body     = ["Hello world"];
-my @response = [ $status, $headers, $body ];
-my $string = encode-psgi-response(@response);
-#
-#   Status: 200 OK
-#   Content-Type: text/plain
-#
-#   Hello world
-#
-
-# Passing the elements individually.
-# Also, this time, we want to use NPH output.
-$string = encode-psgi-response($status, $headers, $body, :nph);
-#
-#   HTTP/1.0 200 OK
-#   Content-Type: text/plain
-#
-#   Hello world
-#
-
-# Now an example using a Hash for headers, and a singleton
-# for the body.
-my %headers =
-  Content-Type => 'text/plain',
-;
-my $body-text = "Hello world";
-$string = encode-psgi-response($code, %headers, $body-text);
-#
-# Same output as first example
-#
-
-# Populate an %env with P6SGI/PSGI variables.
-#
-my %env;
-populate-psgi-env %env, :input($in), :errors($err), :p6sgi<latest>;
-
-=end code
-
-See the tests for further examples.
-
-=head1 DESCRIPTION
-
-Provides functions for encoding P6SGI/PSGI responses, and populating
-P6SGI/PSGI environments.
-
-It supports (in order of preference), P6SGI 0.7Draft, P6SGI 0.4Draft,
-and a minimal subset of PSGI Classic (from Perl).
-
-If the C<populate-psgi-env> subroutine is called without specifying
-a specific version, both P6SGI 0.7Draft and P6SGI 0.4Draft headers
-will be included. PSGI Classic headers must be explicitly requested.
-
-=head1 AUTHOR
-
-Timothy Totten
-
-=head1 COPYRIGHT AND LICENSE
-
-Copyright 2013 - 2016 Timothy Totten
-
-Copyright 2017 - 2022 Raku Community
-
-This library is free software; you can redistribute it and/or modify
-it under the Artistic License 2.0.
-
-=end pod
 
 # vim: expandtab shiftwidth=4

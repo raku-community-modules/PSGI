@@ -1,6 +1,9 @@
 Revision history for PSGI
 
 {{$NEXT}}
+    - Modernized doc and META6
+    - Added partial coverage testing
+    - Updated copyright year
 
 1.2.1  2022-05-11T20:57:21+02:00
     - First version in the zef ecosystem
