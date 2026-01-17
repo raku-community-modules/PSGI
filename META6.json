@@ -4,6 +4,8 @@
     "Timothy Totten, supernovus",
     "Raku community"
   ],
+  "build-depends": [
+  ],
   "depends": {
     "runtime": {
       "requires": [
@@ -18,6 +20,9 @@
     "PSGI": "lib/PSGI.rakumod"
   },
   "raku": "6.*",
+  "resources": [
+  ],
+  "source-url": "https://github.com/raku-community-modules/PSGI.git",
   "support": {
     "bugtracker": "https://github.com/raku-community-modules/PSGI/issues",
     "email": "community@raku.org",
@@ -25,6 +30,8 @@
   },
   "tags": [
     "PSGI"
+  ],
+  "test-depends": [
   ],
   "version": "1.2.2"
 }

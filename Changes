@@ -1,6 +1,8 @@
 Revision history for PSGI
 
 {{$NEXT}}
+
+1.2.2  2026-01-17T14:22:51+01:00
     - Modernized doc and META6
     - Added partial coverage testing
     - Updated copyright year
