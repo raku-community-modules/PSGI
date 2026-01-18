@@ -2,6 +2,9 @@ Revision history for PSGI
 
 {{$NEXT}}
 
+1.2.3  2026-01-18T18:16:56+01:00
+    - Tighten dependency on HTTP::Status
+
 1.2.2  2026-01-17T14:22:51+01:00
     - Modernized doc and META6
     - Added partial coverage testing
