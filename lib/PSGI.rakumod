@@ -1,5 +1,5 @@
 # Some helpers for PSGI frameworks.
-use HTTP::Status;
+use HTTP::Status:ver<0.0.5+>:auth<zef:lizmat>;
 
 my constant CRLF = "\x0D\x0A";              # Output lines separated by CRLF.
 my constant STATUS_HEADER = 'Status:';      # Used for Parsed Headers.
